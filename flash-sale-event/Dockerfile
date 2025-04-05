@@ -1,12 +1,38 @@
-# 베이스 이미지: OpenJDK 21 slim 버전 사용 (필요에 따라 버전 조정)
-FROM openjdk:21-jdk-slim
+# Step 1: Use an official Gradle image to build the project
+FROM gradle:jdk21 AS builder
 
-# 작업 디렉토리 생성
+# Step 2: Set the working directory inside the container
 WORKDIR /app
 
-# 빌드한 jar 파일을 컨테이너로 복사
-# 예를 들어, jar 파일 이름이 flash-sale-event.jar라면:
-COPY build/libs/flash-sale-event.jar app.jar
+# Step 3: Copy the Gradle wrapper and build files
+COPY build.gradle settings.gradle gradlew ./
+COPY gradle ./gradle
 
-# 컨테이너 실행 시 jar 파일 실행
+# Step 4: Copy the rest of the project files
+COPY src ./src
+
+# Step 5: Build the application
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build -x test
+
+
+# Step 6: Use an official OpenJDK runtime image
+FROM openjdk:21-jdk-slim
+
+# Step 7: Set the working directory inside the container
+WORKDIR /app
+
+# Step 8: Install tzdata and set timezone
+RUN apt-get update && apt-get install -y tzdata && \
+    ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
+    echo "Asia/Seoul" > /etc/timezone && \
+    apt-get clean
+
+# Step 9: Copy the jar file from the build stage
+COPY --from=builder /app/build/libs/app.jar app.jar
+
+# Step 10: Expose the application port
+EXPOSE 8080
+
+# Step 11: Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
