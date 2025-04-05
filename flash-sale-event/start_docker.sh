@@ -1,8 +1,15 @@
 #!/bin/bash
 
+# 기존 컨테이너 강제 종료 및 삭제
 docker rm -f flash-sale-container
+
+# 이미지 빌드
 docker build -t flash-sale-event .
+
+# 컨테이너 실행 (CPU & 메모리 제한 포함)
 docker run -d \
   --name flash-sale-container \
+  --cpus="0.2" \
+  --memory="128m" \
   -p 8080:8080 \
   flash-sale-event
