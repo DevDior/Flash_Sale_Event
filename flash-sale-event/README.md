@@ -30,6 +30,6 @@
 docker run -d \
   --name flash-sale-container \
   --cpus="0.2" \
-  --memory="128m" \
+  --memory="512m" \
   -p 8080:8080 \
   flash-sale-event
