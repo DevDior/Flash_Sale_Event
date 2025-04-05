@@ -37,7 +37,7 @@ public class FlashsaleEvent {
     // 남은 수량
     private int remainingQuantity;
 
-    // 이벤트 상태 (예: SCHEDULED, ONGING, ENDED)
+    // 이벤트 상태 (예: SCHEDULED, ONGOING, ENDED)
     @Enumerated(EnumType.STRING)
     private FlashsaleStatus status;
 
