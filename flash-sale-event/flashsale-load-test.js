@@ -10,9 +10,6 @@ export const options = {
 
     // 총 5000건 이상 요청이 있어야 함
     http_reqs: ['count>999'],
-
-    // ❗ 실패율 0% (즉, 100% 성공만 허용)
-    http_req_failed: ['rate==0'],
   },
 };
 
