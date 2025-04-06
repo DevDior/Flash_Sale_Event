@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 기존 dangling 이미지 삭제
+docker image prune -f
+
 # 기존 컨테이너 강제 종료 및 삭제
 docker rm -f flash-sale-container
 
@@ -10,6 +13,6 @@ docker build -t flash-sale-event .
 docker run -d \
   --name flash-sale-container \
   --cpus="0.2" \
-  --memory="512m" \
+  --memory="1024m" \
   -p 8080:8080 \
   flash-sale-event
