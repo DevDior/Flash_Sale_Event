@@ -40,15 +40,4 @@ public class FlashsaleEvent {
     // 이벤트 상태 (예: SCHEDULED, ONGOING, ENDED)
     @Enumerated(EnumType.STRING)
     private FlashsaleStatus status;
-
-    public void descreaseQuantity(int quantity) {
-        if (this.status != FlashsaleStatus.ONGOING) {
-            throw new IllegalStateException("진행 중인 이벤트가 아닙니다.");
-        }
-
-        if (this.remainingQuantity < quantity) {
-            throw new IllegalStateException("재고가 부족합니다.");
-        }
-        this.remainingQuantity -= quantity;
-    }
 }

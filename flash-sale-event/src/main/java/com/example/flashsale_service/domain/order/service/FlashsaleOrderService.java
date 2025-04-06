@@ -20,14 +20,14 @@ public class FlashsaleOrderService {
 
     @Transactional
     public void placeOrder(Long eventId, int quantity) {
-        FlashsaleEvent event = flashsaleEventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+        int updated = flashsaleEventRepository.decreaseQuantity(eventId, quantity);
+        if (updated == 0) {
+            throw new RuntimeException("Sold out!");
+        }
 
-        // 객체 내부 메서드로 재고 감소
-        event.descreaseQuantity(quantity);
-
+        // 주문 생성
         Order order = Order.builder()
-                .flashsaleEvent(event)
+                .flashsaleEvent(FlashsaleEvent.builder().id(eventId).build())   // 조회 없이 ID만 설정
                 .quantity(quantity)
                 .orderTime(LocalDateTime.now())
                 .status(OrderStatus.CREATED)
