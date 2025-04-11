@@ -29,7 +29,7 @@
 ```bash
 docker run -d \
   --name flash-sale-container \
-  --cpus="0.2" \
+  --cpus="1" \
   --memory="1024m" \
   -p 8080:8080 \
   flash-sale-event
