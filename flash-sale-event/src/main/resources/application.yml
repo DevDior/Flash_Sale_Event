@@ -21,6 +21,6 @@ logging:
     name: logs/flashsale-app.log  # 로그 파일 경로
   level:
     root: INFO
-    com.example.flashsale_service: DEBUG  # 너희 도메인 패키지 기준으로 설정
+    com.example.flashsale_service: DEBUG  # 도메인 패키지 기준으로 설정
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
