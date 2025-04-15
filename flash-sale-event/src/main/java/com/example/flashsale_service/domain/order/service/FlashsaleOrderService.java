@@ -24,12 +24,12 @@ public class FlashsaleOrderService {
 
     @Transactional
     public void placeOrder(Long eventId, int quantity) {
-        log.info("[ORDER] 주문 시도 - eventId={}, quantity={}", eventId, quantity);
 
-        long start = System.currentTimeMillis();
 
+        long beforeUpdate = System.currentTimeMillis();
         int updated = flashsaleEventRepository.decreaseQuantity(eventId, quantity);
-        long dbLatency = System.currentTimeMillis() - start;
+        long updateDuration  = System.currentTimeMillis() - beforeUpdate;
+        log.debug("[PERF] 재고 차감 쿼리 처리 시간: {}ms", updateDuration );
 
         if (updated == 0) {
             log.warn("{ORDER] 주문 실패 - 품절 상태 (eventId={})", eventId);
@@ -44,8 +44,10 @@ public class FlashsaleOrderService {
                     .status(OrderStatus.CREATED)
                     .build();
 
+            long beforeInsert = System.currentTimeMillis();
             orderRepository.save(order);
-            log.info("[ORDER] 주문 완료 - eventId{}, orderId={}", eventId, order.getId());
+            long insertDuration = System.currentTimeMillis() - beforeInsert;
+            log.debug("[PERF] 주문 저장 처리 시간: {}ms", insertDuration);
         }
     }
 }

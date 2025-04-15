@@ -20,6 +20,8 @@ public class FlashsaleOrderController {
 
     @PostMapping("/{eventId}/order")
     public ResponseEntity<String> order(@PathVariable Long eventId) {
+        long start = System.currentTimeMillis(); // 전체 요청 시작 시간
+
         try {
             orderService.placeOrder(eventId, 1);
             return ResponseEntity.ok("Order placed!");
@@ -31,6 +33,9 @@ public class FlashsaleOrderController {
 
             // Sold out!인 경우
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } finally {
+            long duration = System.currentTimeMillis() - start;
+            log.info("[PERF] 주문 전체 처리 시간: {}ms", duration);
         }
     }
 }
