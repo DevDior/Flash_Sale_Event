@@ -9,6 +9,7 @@ spring:
     password: admin123
     hikari:
       maximum-pool-size: 145
+      initialization-fail-timeout: 300000
 
   jpa:
     hibernate:

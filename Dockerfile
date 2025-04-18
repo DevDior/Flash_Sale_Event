@@ -35,4 +35,4 @@ COPY --from=builder /app/build/libs/app.jar app.jar
 EXPOSE 8080
 
 # Step 11: Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dcom.zaxxer.hikari.blockUntilFilled=true", "-jar", "app.jar"]
