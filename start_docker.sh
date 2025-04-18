@@ -15,7 +15,7 @@ mkdir -p ./logs
 # 컨테이너 실행 (CPU & 메모리 제한 포함)
 docker run -d \
   --name flash-sale-container \
-  --cpus="1" \
+  --cpus="2" \
   --memory="1024m" \
   -p 8080:8080 \
   -v $(pwd)/logs:/app/logs \
