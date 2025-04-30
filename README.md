@@ -33,3 +33,11 @@ docker run -d \
   --memory="1024m" \
   -p 8080:8080 \
   flash-sale-event
+```
+
+---
+
+## 기록
+Issues에 이슈와 테스크를 작성하고 이를 티켓처럼 사용합니다.  
+문제 해결을 위한 고민과 시도 내용을 상세히 작성합니다.  
+해결된 이슈를 모아 [기술 블로그(Velog)](https://velog.io/@chinup1004/series/%ED%94%8C%EB%9E%98%EC%8B%9C-%EC%84%B8%EC%9D%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8)에 아티클을 작성합니다.
