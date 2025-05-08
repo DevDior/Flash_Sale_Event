@@ -4,7 +4,7 @@
 docker image prune -f
 
 # 기존 컨테이너 강제 종료 및 삭제
-docker rm -f flash-sale-container redis-container
+docker rm -f flash-sale-container redis
 
 # logs 디렉터리가 없으면 생성
 mkdir -p ./logs
