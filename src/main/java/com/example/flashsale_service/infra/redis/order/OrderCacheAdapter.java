@@ -17,8 +17,7 @@ public class OrderCacheAdapter implements OrderCachePort {
     @Override
     public void save(CachedOrder order) {
         String key = PREFIX + UUID.randomUUID();
-        redisTemplate.opsForValue().set(key, ord
-                .er);
+        redisTemplate.opsForValue().set(key, order);
     }
 
     @Override
